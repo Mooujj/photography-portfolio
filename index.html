@@ -70,33 +70,32 @@
             const sizes = p.sizes || "(min-width:768px) 50vw, 100vw";
 
             return `
-          <div class="w-full md:w-1/2 p-1">
-            <div class="overflow-hidden h-full w-full">
-              <a href="${p.src}" data-fancybox="gallery" ${
+                <div class="w-full md:w-1/2 p-1">
+                  <div class="overflow-hidden w-full">
+                    <a href="${p.src}" data-fancybox="gallery" ${
               p.caption ? `data-caption="${p.caption}"` : ""
             }>
-                <img
-                  alt="${p.alt || ""}"
-                  loading="lazy"
-                  class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                  src="${p.thumb || p.src}"
-                  ${srcset ? `srcset="${srcset}" sizes="${sizes}"` : ""}
-                />
-              </a>
-            </div>
-          </div>
-        `;
+                      <img
+                        alt="${p.alt || ""}"
+                        loading="lazy"
+                        class="block w-full h-auto object-cover object-center transition duration-500 hover:scale-105"
+                        src="${p.thumb || p.src}"
+                        ${srcset ? `srcset="${srcset}" sizes="${sizes}"` : ""}
+                      />
+                    </a>
+                  </div>
+                </div>
+              `;
           })
           .join("");
 
-        // (Re)bind Fancybox after injecting items
         if (window.Fancybox) Fancybox.bind('[data-fancybox="gallery"]', {});
       } catch (e) {
         console.error("Failed to load photos.json", e);
       }
     }
 
-    loadGallery();
+    document.addEventListener("DOMContentLoaded", loadGallery);
   </script>
   <body
     class="dark:bg-black bg-white h-screen text-black dark:text-white px-5 md:px-20 opacity-0 animate-fade-in transition duration-500"
